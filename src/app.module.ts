@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { WhatsappModule } from './whatsapp/whatsapp.module';
-import { SmsModule } from './sms/sms.module';
-import { MailModule } from './mail/mail.module';
-import { NotificationModule } from './notification/notification.module';
-import { SlackModule } from './slack/slack.module';
+import { MailModule } from './modules/mail/mail.module';
+import { SlackModule } from './modules/slack/slack.module';
 import { ConfigModule } from '@nestjs/config';
-import configuration from './shared/config/configuration';
-// import { RedisModule } from '@nestjs-modules/ioredis';
 import { ScheduleModule } from '@nestjs/schedule';
-import { redisClientFactory } from './shared/config/redis.config';
+import { OtpModule } from './modules/otp/otp.module';
+import { configuration } from './configs';
+import { WhatsappModule } from './modules/whatsapp/whatsapp.module';
+import { NotificationModule } from './modules/notification/notification.module';
+import { SmsModule } from './modules/sms/sms.module';
 
 @Module({
   imports: [
@@ -27,8 +26,9 @@ import { redisClientFactory } from './shared/config/redis.config';
     NotificationModule,
     SlackModule,
     ScheduleModule.forRoot(),
+    OtpModule,
   ],
   controllers: [AppController],
-  providers: [redisClientFactory, AppService],
+  providers: [AppService],
 })
 export class AppModule {}
